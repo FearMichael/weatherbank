@@ -6,7 +6,7 @@ const cron = require("node-cron");
 const logError = require("./Globals/logError.js");
 
 
-const PORT = process.env.port || 3001;
+const PORT = process.env.PORT || 3001;
 try {
 
     mongoose.connect(process.env.MONGO_URI);
@@ -28,5 +28,5 @@ app.get("/", function (req, res) {
 })
 
 app.listen(PORT, function () {
-    console.log(`Listning on ${process.env.PORT}`)
+    console.log(`Listning on ${PORT}`)
 })
