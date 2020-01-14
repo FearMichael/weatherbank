@@ -3,7 +3,7 @@ const app = express();
 const weatherFetch = require("./scheduled-jobs/weatherFetch");
 const mongoose = require("mongoose");
 const cron = require("node-cron");
-const logError = require("./Globals/logError.js");
+const logError = require(__dirname + "/Globals/logError.js");
 
 
 const PORT = 3001;
