@@ -23,6 +23,10 @@ try {
     logError(err);
 }
 
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/index.html");
+})
+
 app.listen(PORT, function () {
     console.log(`Listning on ${PORT}`)
 })
