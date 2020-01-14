@@ -1,4 +1,5 @@
 const fs = require("fs");
+
 function logError(error) {
     let timeStamp = Date.now();
     let readableTime = Date(timeStamp);
