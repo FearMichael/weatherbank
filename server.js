@@ -12,7 +12,7 @@ try {
     mongoose.connect(process.env.MONGO_URI);
 
 
-    let weatherSearch = cron.schedule("0 * 4 * * *", () => {
+    let weatherSearch = cron.schedule("0 * 19 * * *", () => {
         weatherFetch();
     }, {
 
