@@ -18,5 +18,6 @@ const runFetch = () => {
     };
 }
 
+runFetch();
 
-module.exports = runFetch;
+// module.exports = runFetch;
