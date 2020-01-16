@@ -11,7 +11,10 @@ const runFetch = () => {
         axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`).then((weatherData) => {
             console.log(weatherData.data);
             Weather.create(weatherData.data);
-        }).catch((err) => { logError(err) });
+        }).catch((err) => {
+            logError(err);
+            console.error(err);
+        });
     };
 }
 
