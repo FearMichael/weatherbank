@@ -2,9 +2,11 @@ const axios = require("axios");
 const fs = require("fs");
 const Weather = require("../Models/weatherInfo");
 require("dotenv").config();
-let rawCities = fs.readFileSync("cities.json");
+let rawCities = fs.readFileSync("./cities.json");
 let cities = JSON.parse(rawCities);
 const logError = require("../Globals/logError");
+
+console.log(rawCities);
 
 const runFetch = () => {
     for (let i = 0; i <= cities.length; i++) {
