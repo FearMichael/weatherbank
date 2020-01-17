@@ -15,7 +15,6 @@ const runFetch = () => {
     // runningSaves++;
     // Weather.create(JSON.parse(fs.readFileSync("./mockData.json"))).then(() => runningSaves--);
     for (let i = 0; i < cities.length; i++) {
-        runningSaves++;
         axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`).then((weatherData) => {
             runningSaves++;
             Weather.create(weatherData.data).then(() => runningSaves--).catch(() => runningSaves--);
