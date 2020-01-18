@@ -22,6 +22,7 @@ const runFetch = async () => {
             runningSaves--;
         } catch (err) {
             console.log(err);
+            runningSaves--;
         }
     };
     closeConnection();
