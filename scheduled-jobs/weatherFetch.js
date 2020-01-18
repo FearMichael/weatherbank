@@ -23,6 +23,9 @@ const runFetch = async () => {
         } catch (err) {
             console.log(err);
             runningSaves--;
+            if (err.code) {
+                process.exit(1);
+            }
         }
     };
     closeConnection();
@@ -33,7 +36,7 @@ function closeConnection() {
     console.log(runningSaves);
     if (runningSaves <= 0) {
         mongoose.disconnect();
-        console.log("Mongoose Disconnected.")
+        console.log("Mongoose Disconnected.");
     } else {
         console.log("waiting to close");
         setTimeout(function () {
