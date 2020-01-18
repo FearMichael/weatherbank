@@ -11,19 +11,20 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
 
 let runningSaves = 0;
 //used for testing
-const runFetch = () => {
+const runFetch = async () => {
     // runningSaves++;
     // Weather.create(JSON.parse(fs.readFileSync("./mockData.json"))).then(() => runningSaves--);
-    for (let i = 0; i < cities.length; i++) {
-        axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`).then((weatherData) => {
+    for (let i = 69; i < 73; i++) {
+        try {
+            let weatherData = await axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`);
             runningSaves++;
-            Weather.create(weatherData.data).then(() => runningSaves--).catch(() => runningSaves--);
-        }).catch((err) => {
-            runningSaves--
-            // logError(err);
-            console.error(err);
-        });
+            await Weather.create(weatherData.data)
+            runningSaves--;
+        } catch (err) {
+            console.log(err);
+        }
     };
+    closeConnection();
 }
 
 
@@ -41,8 +42,3 @@ function closeConnection() {
 };
 
 runFetch();
-
-closeConnection(runningSaves);
-
-
-// module.exports = runFetch;
