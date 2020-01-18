@@ -31,7 +31,7 @@ const runFetch = async () => {
 
 function closeConnection() {
     console.log(runningSaves);
-    if (runningSaves === 0) {
+    if (runningSaves <= 0) {
         mongoose.disconnect();
         console.log("Mongoose Disconnected.")
     } else {
