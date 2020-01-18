@@ -23,7 +23,7 @@ const runFetch = async () => {
         } catch (err) {
             console.log(err);
             runningSaves--;
-            if (err.code) {
+            if (err.code === 403) {
                 process.exit(1);
             }
         }
