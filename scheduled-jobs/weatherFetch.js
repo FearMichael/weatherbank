@@ -14,16 +14,16 @@ let runningSaves = 0;
 const runFetch = async () => {
     // runningSaves++;
     // Weather.create(JSON.parse(fs.readFileSync("./mockData.json"))).then(() => runningSaves--);
-    for (let i = 0; i < cities.length; i++) {
+    for (let i = 0; i < 2; i++) {
         try {
             let weatherData = await axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`);
             runningSaves++;
             await Weather.create(weatherData.data)
             runningSaves--;
         } catch (err) {
-            console.log(err);
             runningSaves--;
-            if (err.code === 403) {
+            if (err.response.code === 403 || err.response.data.code === 403) {
+                console.log("Exited");
                 process.exit(1);
             }
         }
@@ -38,7 +38,7 @@ function closeConnection() {
         mongoose.disconnect();
         console.log("Mongoose Disconnected.");
     } else {
-        console.log("waiting to close");
+        console.log("Waiting to Close");
         setTimeout(function () {
             closeConnection(runningSaves);
         }, 1000)
