@@ -20,6 +20,7 @@ const runFetch = async () => {
             runningSaves++;
             await Weather.create(weatherData.data)
             runningSaves--;
+            closeConnection();
         } catch (err) {
             runningSaves--;
             if (err.response.code === 403 || err.response.data.code === 403) {
@@ -28,7 +29,6 @@ const runFetch = async () => {
             }
         }
     };
-    closeConnection();
 }
 
 
@@ -39,9 +39,9 @@ function closeConnection() {
         console.log("Mongoose Disconnected.");
     } else {
         console.log("Waiting to Close");
-        setTimeout(function () {
-            closeConnection(runningSaves);
-        }, 1000)
+        // setTimeout(function () {
+        //     closeConnection(runningSaves);
+        // }, 1000)
     }
 };
 
