@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
-let runningSaves = 0;
+let runningSaves = null;
 //used for testing
 const runFetch = async () => {
     // runningSaves++;
