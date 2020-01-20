@@ -39,7 +39,7 @@ const runFetch = () => {
             savedItems++
             if (err.response.code === 403 || err.response.data.code === 403) {
                 //if forbidden at DarkSky - most likely the API call limit has been reached, disconnect and terminate the process
-                console.err("Exited on 403 error");
+                console.error("Exited on 403 error");
                 mongoose.disconnect();
                 process.exit(1);
             } else {
