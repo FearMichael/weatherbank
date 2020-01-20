@@ -60,4 +60,7 @@ function checkCloseConnection() {
 
 if (process.argv[2] === "run") {
     runFetch();
-} 
+} else {
+    console.error("Add 'run' to your command")
+    process.exit(1);
+}
