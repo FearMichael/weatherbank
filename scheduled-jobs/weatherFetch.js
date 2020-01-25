@@ -21,34 +21,30 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
     //Count how many items get saved to the database then disconnect from DB and end process once 1000 have been run
     let savedItems = null;
 
-    const runFetch = () => {
+    const runFetch = async () => {
         //loop over all cities and fetch their weather data
         for (let i = 0; i < cities.length; i++) {
-            axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`).then((weatherData) => {
+            try {
+
+                let weatherData = await axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${cities[i].latitude},${cities[i].longitude}`)
                 //add weather data for the city to the DB
-                Weather.create(weatherData.data).then(() => {
-                    //increment saved items forward upon successful completion
-                    savedItems++
-                    checkCloseConnection();
-                }).catch(err => {
-                    //increment saved items forward even when failed but log the failure
-                    //this way the checkCloseFunction will still end after cities.length has been completed
-                    savedItems++
-                    checkCloseConnection();
-                    console.error(err);
-                })
-            }).catch(err => {
+                await Weather.create(weatherData.data);
+                //increment saved items forward upon successful completion
                 savedItems++
+
+            } catch (err) {
                 if (err.response.code === 403 || err.response.data.code === 403) {
                     //if forbidden at DarkSky - most likely the API call limit has been reached, disconnect and terminate the process
                     console.error("Exited on 403 error");
                     mongoose.disconnect();
                     process.exit(1);
                 } else {
+                    savedItems++;
                     checkCloseConnection();
                 }
-            })
-        };
+            }
+        }
+        checkCloseConnection();
     };
 
     function checkCloseConnection() {
@@ -67,4 +63,7 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
         process.exit(1);
     }
 
-}).catch(err => process.exit(1));
+}).catch(err => {
+    console.log(err)
+    process.exit(1)
+});
