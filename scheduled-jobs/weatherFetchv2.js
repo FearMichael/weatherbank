@@ -73,9 +73,10 @@ const iteration = {
 //application function to loop over all arrays and calls 
 
 const promiseLoop = (nestedArr) => {
+    console.log(nestedArr);
     if (iteration.getCount() < nestedArr.length) {
         // setTimeout(function () {
-        getWeather(nestedArr[iteration]);
+        getWeather(nestedArr[iteration.getCount()]);
         promiseLoop(nestedArr);
         iteration.incrementCount();
         // }, 1000);
