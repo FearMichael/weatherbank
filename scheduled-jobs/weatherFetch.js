@@ -5,6 +5,7 @@ require("dotenv").config();
 const cities = JSON.parse(fs.readFileSync("./cities.json"));
 const logError = require("../Globals/logError");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }).then(function () {
 
@@ -20,6 +21,8 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
 
     //Count how many items get saved to the database then disconnect from DB and end process once 1000 have been run
     let savedItems = null;
+
+
 
     const runFetch = async () => {
         //loop over all cities and fetch their weather data
