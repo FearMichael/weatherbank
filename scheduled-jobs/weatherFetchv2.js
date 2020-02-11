@@ -36,11 +36,11 @@ const getWeather = (locations) => {
         promises.push(axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${location.latitude},${location.longitude}`));
     });
 
-    let weatherData = [];
 
     Promise.all(promises)
         .then((data) => {
-            console.log(data.data);
+            console.log(data);
+            let weatherData = [];
             data.forEach((weather) => {
                 weatherData.push(Weather.create(weather.data));
             });
@@ -51,7 +51,7 @@ const getWeather = (locations) => {
 
         }).catch(err => {
             mongoose.disconnect();
-            console.log("Error with getting and creating weather data!", err);
+            console.log("Error with getting and creating weather data!", err.data.error, err.data.code);
             process.exit(1);
         });
 }
@@ -73,18 +73,14 @@ const iteration = {
 //application function to loop over all arrays and calls 
 
 const promiseLoop = (nestedArr) => {
-    console.log(nestedArr);
     if (iteration.getCount() < nestedArr.length) {
-        // setTimeout(function () {
         getWeather(nestedArr[iteration.getCount()]);
-        promiseLoop(nestedArr);
         iteration.incrementCount();
-        // }, 1000);
     } else {
-        // setTimeout(function () {
-        console.log("Exiting .. Completed.")
-        process.exit(0);
-        // }, 5000);
+        setTimeout(function () {
+            console.log("Exiting .. Completed.")
+            process.exit(0);
+        }, 5000);
     }
 };
 
