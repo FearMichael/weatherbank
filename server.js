@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 // const weatherFetch = require("./scheduled-jobs/weatherFetch");
@@ -8,24 +9,24 @@ const Weather = require("./Models/weatherInfo");
 
 
 const PORT = process.env.PORT || 3000;
-try {
+// try {
 
-    mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
+// console.log(process.env.MONGO_URI);
 
-    // let weatherSearch = cron.schedule("0 30 19 * * *", () => {
-    //     weatherFetch();
-    // }, {
+// let weatherSearch = cron.schedule("0 30 19 * * *", () => {
+//     weatherFetch();
+// }, {
 
-    // });
-    // weatherSearch.start();
-    // weatherFetch();
-} catch (err) {
-    logError(err);
-}
+// });
+// weatherSearch.start();
+//     // weatherFetch();
+// } catch (err) {
+//     logError(err);
+// }
 
 app.get("/api/allweather", async function (req, res) {
-    console.log(res);
     let weather;
     try {
         weather = await Weather.find({}).limit(1000);

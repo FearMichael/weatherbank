@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MatTableModule } from "@angular/material/table";
+
+interface Weather {
+  Timezone: String,
+  Temperature: Number
+}
 
 @Component({
   selector: 'app-home',
@@ -7,9 +14,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  // private http: HttpClient;
+
+  constructor(private http: HttpClient) { }
+
+  columnsToDisplay = ["Timezone", "Temperature"];
+
+  weather = null;
 
   ngOnInit(): void {
+
+    this.http.get("/api/allweather").subscribe((weather: Weather) => this.weather = weather);
+
   }
 
 }
+
+

@@ -1,1 +1,9 @@
 <p>home works!</p>
+<table *ngIf mat-table [dataSource]="weather">
+    <mat-text-column name="Timezone"> {{ weather.timezone }} </mat-text-column>
+    <mat-text-column name="Current Temperature"> {{ weather.currently.temperature }} </mat-text-column>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let timezone; columnsToDisplay"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let temperature; columnsToDisplay"></tr>
+</table>
