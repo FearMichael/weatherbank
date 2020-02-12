@@ -4,9 +4,10 @@ const app = express();
 const mongoose = require("mongoose");
 const cron = require("node-cron");
 const logError = require("./Globals/logError.js");
+const Weather = require("./Models/weatherInfo");
 
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 try {
 
     mongoose.connect(process.env.MONGO_URI);
@@ -22,6 +23,19 @@ try {
 } catch (err) {
     logError(err);
 }
+
+app.get("/api/allweather", async function (req, res) {
+    console.log(res);
+    let weather;
+    try {
+        weather = await Weather.find({}).limit(1000);
+        res.json(weather);
+    } catch (err) {
+        console.log(err);
+        res.statusCode(500);
+    }
+
+})
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
