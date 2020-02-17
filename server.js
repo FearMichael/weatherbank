@@ -11,7 +11,7 @@ const Weather = require("./Models/weatherInfo");
 const PORT = process.env.PORT || 3000;
 // try {
 
-mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log(err));
 
 // console.log(process.env.MONGO_URI);
 
@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
 app.get("/api/allweather", async function (req, res) {
     let weather;
     try {
-        weather = await Weather.find({}).limit(1000);
+        weather = await Weather.find({}).limit(100);
         res.json(weather);
     } catch (err) {
         console.log(err);
@@ -38,9 +38,9 @@ app.get("/api/allweather", async function (req, res) {
 
 })
 
-app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/index.html");
-})
+// app.get("/", function (req, res) {
+//     res.sendFile(__dirname + "/index.html");
+// })
 
 app.listen(PORT, function () {
     console.log(`Listning on ${PORT}`)

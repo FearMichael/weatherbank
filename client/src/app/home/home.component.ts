@@ -1,10 +1,14 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MatTableModule } from "@angular/material/table";
+import { MatTableModule, MatTableDataSource } from "@angular/material/table";
+import { MatExpansionModule } from '@angular/material/expansion';
 
 interface Weather {
-  Timezone: String,
-  Temperature: Number
+  timezone: String,
+  currently: {
+    temperature: Number,
+    summary: String,
+  }
 }
 
 @Component({
@@ -18,14 +22,27 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  columnsToDisplay = ["Timezone", "Temperature"];
+  // dataSource = new MatTableDataSource<Weather>();
+
+  columnsToDisplay: string[] = ["Timezone", "Latitude", "Longitude", "Summary"];
 
   weather = null;
 
+
+  panelOpenState = false;
+
+  // columnsToDisplay = ["Timezone", "Temperature"];
+
   ngOnInit(): void {
+    this.getWeather();
+  }
 
-    this.http.get("/api/allweather").subscribe((weather: Weather) => this.weather = weather);
-
+  getWeather() {
+    this.http.get("/api/allweather").subscribe((weather: Weather[]) => {
+      console.log(weather);
+      this.weather = weather;
+      // return this.dataSource.data = weather;
+    });
   }
 
 }

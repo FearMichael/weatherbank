@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlPar
         console.error("Runtime Maxed Out - Killing process")
         mongoose.disconnect()
         process.exit(1);
-        //7 minute timeout
+        //7 minute timeou
     }, (1000 * 60) * 7);
 
     //Count how many items get saved to the database then disconnect from DB and end process once 1000 have been run
