@@ -1,9 +1,86 @@
 <p>home works!</p>
-<table *ngIf mat-table [dataSource]="weather">
-    <mat-text-column name="Timezone"> {{ weather.timezone }} </mat-text-column>
-    <mat-text-column name="Current Temperature"> {{ weather.currently.temperature }} </mat-text-column>
+<table *ngIf="weather" mat-table [dataSource]="weather" multiTemplateDataRows>
+
+    <ng-container matColumnDef="Timezone">
+        <th mat-header-cell *matHeaderCellDef>Timezone</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.timezone }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Latitude">
+        <th mat-header-cell *matHeaderCellDef>Latitude</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.latitude | number: '0.1-3'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Longitude">
+        <th mat-header-cell *matHeaderCellDef>Longitude</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.longitude | number: '0.1-3' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Summary">
+        <th mat-header-cell *matHeaderCellDef>Summary</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.daily.summary }}</td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let timezone; columnsToDisplay"></tr>
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let temperature; columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let weather; columns: columnsToDisplay"></tr>
 </table>
+
+
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Personal data
+            </mat-panel-title>
+            <mat-panel-description>
+                Type your name and age
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput type="number" min="1">
+        </mat-form-field>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Self aware panel
+            </mat-panel-title>
+            <mat-panel-description>
+                Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<!-- <mat-accordion> -->
+<!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            This is the expansion title
+        </mat-panel-title>
+        <mat-panel-description>
+            This is a summary of the content
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>This is the primary content of the panel.</p>
+</mat-expansion-panel> -->
+
+<!-- <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Another Panel!
+            </mat-panel-title>
+            <mat-panel-description>
+                More summary of content!
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>The real meat goes here!</p>
+    </mat-expansion-panel> -->
+
+<!-- </mat-accordion> -->
