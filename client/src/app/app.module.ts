@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { MatExpansionModule, MatAccordion } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatExpansionModule,
+    // MatAccordion,
     HttpClientModule
   ],
   providers: [],
