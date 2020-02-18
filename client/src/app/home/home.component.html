@@ -1,23 +1,23 @@
 <p>home works!</p>
 
 <ng-container>
-  <mat-accordion *ngIf="weather">
-    <mat-expansion-panel *ngFor="let city of weather">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ city.latitude | number: "0.1-3" }}
-          {{ city.longitude | number: "0.1-3" }}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{ city.currently.summary }}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p *ngFor="let day of city.daily.data">
-        {{ day.time * 1000 | date: "fullDate" }} {{ day.summary }}
-      </p>
-    </mat-expansion-panel>
+    <mat-accordion *ngIf="weather">
+        <mat-expansion-panel *ngFor="let city of weather">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ city.latitude | number: "0.1-3" }}
+                    {{ city.longitude | number: "0.1-3" }}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{ city.currently.summary }}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p *ngFor="let day of city.daily.data">
+                {{ day.time * 1000 | date: "fullDate" }} {{ day.summary }}
+            </p>
+        </mat-expansion-panel>
 
-    <!-- <mat-expansion-panel>
+        <!-- <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Another Panel!
@@ -28,33 +28,33 @@
         </mat-expansion-panel-header>
         <p>The real meat goes here!</p>
     </mat-expansion-panel> -->
-  </mat-accordion>
+    </mat-accordion>
 </ng-container>
 
 <table *ngIf="weather" mat-table [dataSource]="weather" multiTemplateDataRows>
-  <ng-container matColumnDef="Timezone">
-    <th mat-header-cell *matHeaderCellDef>Timezone</th>
-    <td mat-cell *matCellDef="let weather">{{ weather.timezone }}</td>
-  </ng-container>
-  <ng-container matColumnDef="Latitude">
-    <th mat-header-cell *matHeaderCellDef>Latitude</th>
-    <td mat-cell *matCellDef="let weather">
-      {{ weather.latitude | number: "0.1-3" }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="Longitude">
-    <th mat-header-cell *matHeaderCellDef>Longitude</th>
-    <td mat-cell *matCellDef="let weather">
-      {{ weather.longitude | number: "0.1-3" }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="Summary">
-    <th mat-header-cell *matHeaderCellDef>Summary</th>
-    <td mat-cell *matCellDef="let weather">{{ weather.daily.summary }}</td>
-  </ng-container>
+    <ng-container matColumnDef="Timezone">
+        <th mat-header-cell *matHeaderCellDef>Timezone</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.timezone }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Latitude">
+        <th mat-header-cell *matHeaderCellDef>Latitude</th>
+        <td mat-cell *matCellDef="let weather">
+            {{ weather.latitude | number: "0.1-3" }}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="Longitude">
+        <th mat-header-cell *matHeaderCellDef>Longitude</th>
+        <td mat-cell *matCellDef="let weather">
+            {{ weather.longitude | number: "0.1-3" }}
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="Summary">
+        <th mat-header-cell *matHeaderCellDef>Summary</th>
+        <td mat-cell *matCellDef="let weather">{{ weather.daily.summary }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let weather; columns: columnsToDisplay"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let weather; columns: columnsToDisplay"></tr>
 </table>
 
 <!-- <mat-accordion>
